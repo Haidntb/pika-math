@@ -1,0 +1,84 @@
+{
+ "duration": 6.0,
+ "files": {
+  "mix": "mix.wav",
+  "sfx": "sfx.wav",
+  "voice": "voice-pikamath.wav"
+ },
+ "voice": {
+  "file": "voice-pikamath.wav",
+  "start": 3.9,
+  "text": "Pikamath!"
+ },
+ "cues": [
+  {
+   "t": 0.75,
+   "type": "tock",
+   "n": 0
+  },
+  {
+   "t": 0.9,
+   "type": "tock",
+   "n": 1
+  },
+  {
+   "t": 1.05,
+   "type": "tock",
+   "n": 2
+  },
+  {
+   "t": 1.2,
+   "type": "tock",
+   "n": 3
+  },
+  {
+   "t": 1.35,
+   "type": "tock",
+   "n": 4
+  },
+  {
+   "t": 1.5,
+   "type": "tock",
+   "n": 5
+  },
+  {
+   "t": 1.65,
+   "type": "tock",
+   "n": 6
+  },
+  {
+   "t": 1.8,
+   "type": "tock",
+   "n": 7
+  },
+  {
+   "t": 1.95,
+   "type": "tock",
+   "n": 8
+  },
+  {
+   "t": 1.95,
+   "type": "shimmer"
+  },
+  {
+   "t": 2.8,
+   "type": "boing"
+  },
+  {
+   "t": 3.3,
+   "type": "pop"
+  },
+  {
+   "t": 3.3,
+   "type": "swish"
+  },
+  {
+   "t": 4.5,
+   "type": "blip"
+  },
+  {
+   "t": 4.68,
+   "type": "sparkle"
+  }
+ ]
+}

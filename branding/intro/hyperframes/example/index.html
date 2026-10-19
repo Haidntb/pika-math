@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Pika Math intro in a HyperFrames video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body { margin: 0; background: #ffffff; font-family: system-ui, sans-serif; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #ffffff; }
+      .clip { position: absolute; inset: 0; }
+      #next-scene { background: #edfbfd; }
+      #next-title { margin: 0; display: grid; place-items: center; font-size: 96px; font-weight: 800; color: #0f172a; }
+      #corner-logo { inset: auto; left: 72px; top: 56px; height: 72px; }
+    </style>
+  </head>
+  <body>
+    <!-- Ví dụ: intro Pika Math (block, kiểu A) chạy 0–6 s, rồi một cảnh tiếp theo có logo nhỏ ở góc trên trái (logo/lockups). -->
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="9">
+      <div
+        id="intro"
+        data-composition-id="pika-math-intro"
+        data-composition-src="compositions/pika-math-intro.html"
+        data-variable-values='{"logo":"A"}'
+        data-start="0"
+        data-duration="6"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+      <div id="next-scene" class="clip" data-start="6" data-duration="3" data-track-index="2"></div>
+      <h1 id="next-title" class="clip" data-start="6" data-duration="3" data-track-index="3">Cảnh tiếp theo</h1>
+      <img id="corner-logo" class="clip" src="assets/pika-math-intro/pika-math-A-horizontal-color.svg" alt="Pika Math" data-start="6" data-duration="3" data-track-index="4" />
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#next-title", { y: 48, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 6.2);
+      tl.fromTo("#corner-logo", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 6.4);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

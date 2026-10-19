@@ -1,0 +1,43 @@
+<!doctype html>
+<!--GENERATED-->
+<html data-composition-variables='[
+  {"id":"logo","type":"enum","label":"Logo","default":"A","options":[{"value":"A","label":"A horizontal"},{"value":"B","label":"B two-line"},{"value":"C","label":"C stacked"},{"value":"D","label":"D two-line, small Pika"}]},
+  {"id":"background","type":"color","label":"Background","default":"#FFFFFF"},
+  {"id":"transparent","type":"boolean","label":"Transparent background","default":false}
+]'>
+<head><meta charset="UTF-8"><title>Pika Math intro block</title></head>
+<body>
+<template>
+  <style>
+    #root { position: absolute; inset: 0; }
+    #__ID__-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  </style>
+  <div id="root" data-composition-id="__ID__" data-width="__W__" data-height="__H__" data-duration="6">
+    <div id="__ID__-stage"></div>
+    <audio id="__ID__-sound" src="assets/pika-math-intro/mix.wav" data-start="0" data-duration="6" data-track-index="0" data-volume="1"></audio>
+  </div>
+  <script>
+/*__CORE__*/
+  </script>
+  <script>
+    // Canvas tạo lúc chạy (Studio không đọc được biến khi có <canvas> trong markup). Khung được vẽ từ thời điểm của timeline.
+    (function () {
+      var V = typeof __hyperframes !== 'undefined' && __hyperframes.getVariables ? __hyperframes.getVariables() : {};
+      var c = document.createElement('canvas'); c.width = __W__; c.height = __H__;
+      document.getElementById('__ID__-stage').appendChild(c);
+      var g = c.getContext('2d');
+      var intro = window.PikaMathIntro.createPikaMathIntro({
+        width: __W__, height: __H__, logo: V.logo || 'A',
+        background: V.transparent === true || V.transparent === 'true' ? null : (V.background || '#FFFFFF'),
+      });
+      var state = { t: 0 };
+      var tl = gsap.timeline({ paused: true, onUpdate: function () { intro.render(g, state.t); } });
+      tl.fromTo(state, { t: 0 }, { t: intro.duration, duration: intro.duration, ease: 'none' });
+      intro.render(g, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines['__ID__'] = tl;
+    })();
+  </script>
+</template>
+</body>
+</html>

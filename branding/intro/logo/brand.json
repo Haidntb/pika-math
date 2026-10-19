@@ -1,0 +1,78 @@
+{
+ "name": "Pika Math",
+ "parentBrand": "Pika",
+ "colors": {
+  "pika": "#47C3D7",
+  "math": "#FF8A1F",
+  "facePlate": "#FFFFFF",
+  "black": "#000000",
+  "white": "#FFFFFF"
+ },
+ "lockups": {
+  "A": {
+   "name": "horizontal",
+   "role": "primary",
+   "use": "web header, email, slides, 16:9 video",
+   "files": {
+    "color": "lockups/pika-math-A-horizontal-color.svg",
+    "black": "lockups/pika-math-A-horizontal-black.svg",
+    "white": "lockups/pika-math-A-horizontal-white.svg"
+   }
+  },
+  "B": {
+   "name": "two-line",
+   "role": "compact horizontal",
+   "use": "narrow spaces",
+   "files": {
+    "color": "lockups/pika-math-B-two-line-color.svg",
+    "black": "lockups/pika-math-B-two-line-black.svg",
+    "white": "lockups/pika-math-B-two-line-white.svg"
+   }
+  },
+  "D": {
+   "name": "two-line-small-pika",
+   "role": "variant of B",
+   "use": "when the word Math should lead",
+   "files": {
+    "color": "lockups/pika-math-D-two-line-small-pika-color.svg",
+    "black": "lockups/pika-math-D-two-line-small-pika-black.svg",
+    "white": "lockups/pika-math-D-two-line-small-pika-white.svg"
+   }
+  },
+  "C": {
+   "name": "stacked",
+   "role": "vertical",
+   "use": "splash, avatar, poster, 9:16 video",
+   "files": {
+    "color": "lockups/pika-math-C-stacked-color.svg",
+    "black": "lockups/pika-math-C-stacked-black.svg",
+    "white": "lockups/pika-math-C-stacked-white.svg"
+   }
+  },
+  "icon": {
+   "name": "icon",
+   "role": "face only",
+   "use": "app icon, favicon, small sizes",
+   "files": {
+    "color": "icon/pika-math-icon-color.svg",
+    "black": "icon/pika-math-icon-black.svg",
+    "white": "icon/pika-math-icon-white.svg"
+   }
+  }
+ },
+ "variants": {
+  "color": "on white or light backgrounds",
+  "black": "one-color, on light backgrounds; face plate is a cut-out",
+  "white": "one-color, on dark backgrounds; face plate is a cut-out"
+ },
+ "svgIds": {
+  "pika-face": "face group",
+  "face-plate": "white face plate (color only)",
+  "ears": "ears",
+  "head": "head ring (evenodd)",
+  "eye-left": "left eye",
+  "eye-right": "right eye",
+  "word-pika": "word Pika (letters word-pika-P/i/k/a)",
+  "word-math": "word Math (letters word-math-M/a/t/h)"
+ }
+}

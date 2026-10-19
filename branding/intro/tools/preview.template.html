@@ -1,0 +1,70 @@
+<!doctype html>
+<!--GENERATED-->
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pika Math intro preview</title>
+<style>
+:root { --ink: #2d3142; --muted: #4f5d75; --rule: rgba(45,49,66,.14); --paper: #f5f5f5; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); font: 14px/1.5 system-ui, -apple-system, sans-serif; }
+main { max-width: 1280px; margin: 0 auto; padding: 16px; }
+.bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; background: #fff; border: 1px solid var(--rule); border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; }
+.seg { display: flex; gap: 4px; }
+button { font: inherit; font-size: 13px; padding: 4px 12px; border: 1px solid var(--rule); border-radius: 6px; background: #fff; color: var(--ink); cursor: pointer; }
+button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+#scrub { flex: 1 1 200px; }
+#t { font-variant-numeric: tabular-nums; min-width: 56px; color: var(--muted); }
+.stage { display: flex; justify-content: center; }
+canvas { display: block; max-width: 100%; max-height: 78vh; border: 1px solid var(--rule); border-radius: 8px;
+  background-image: conic-gradient(#e6e6e6 25%, #fff 0 50%, #e6e6e6 0 75%, #fff 0); background-size: 24px 24px; }
+body.still { background: transparent; }
+body.still main { max-width: none; padding: 0; }
+body.still .bar { display: none; }
+body.still canvas { max-width: none; max-height: none; border: 0; border-radius: 0; background: none; }
+</style>
+</head><body>
+<main>
+  <div class="bar">
+    <button id="play" class="on">Pause</button>
+    <div class="seg" id="logo"><button data-v="A" class="on">A ngang</button><button data-v="B">B hai dòng</button><button data-v="C">C dọc</button><button data-v="D">D Pika nhỏ</button></div>
+    <div class="seg" id="frame"><button data-v="1920x1080" class="on">16:9</button><button data-v="1080x1920">9:16</button><button data-v="1080x1080">1:1</button></div>
+    <div class="seg" id="bg"><button data-v="#FFFFFF" class="on">Nền trắng</button><button data-v="none">Trong suốt</button><button data-v="#1F2A3A">Nền tối</button></div>
+    <input type="range" id="scrub" min="0" max="6" step="0.01" value="0"><span id="t">0.00 s</span>
+  </div>
+  <div class="stage"><canvas id="c"></canvas></div>
+</main>
+<script>
+/*__CORE__*/
+</script>
+<script>
+// Tham số trên đường dẫn: ?logo=A|B|C|D&w=1920&h=1080&bg=none|<mã màu không có #>; thêm &still để chỉ vẽ khi được gọi (tools/render.mjs).
+const Q = new URLSearchParams(location.search), still = Q.has('still');
+const opt = {
+  logo: Q.get('logo') || 'A',
+  width: +Q.get('w') || 1920, height: +Q.get('h') || 1080,
+  background: Q.get('bg') === 'none' ? null : Q.get('bg') ? '#' + Q.get('bg').replace('#', '') : '#FFFFFF',
+};
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+let intro, t = 0, playing = !still, last = null;
+function build() { intro = PikaMathIntro.createPikaMathIntro(opt); cv.width = intro.width; cv.height = intro.height; draw(); }
+function draw() { intro.render(g, t); document.getElementById('scrub').value = t; document.getElementById('t').textContent = t.toFixed(2) + ' s'; }
+function pick(id, fn) {
+  const box = document.getElementById(id);
+  box.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; [...box.children].forEach(x => x.classList.toggle('on', x === b)); fn(b.dataset.v); build(); });
+}
+pick('logo', v => opt.logo = v);
+pick('frame', v => { const [w, h] = v.split('x').map(Number); opt.width = w; opt.height = h; });
+pick('bg', v => opt.background = v === 'none' ? null : v);
+document.getElementById('play').onclick = e => { playing = !playing; e.target.textContent = playing ? 'Pause' : 'Play'; e.target.classList.toggle('on', playing); };
+document.getElementById('scrub').oninput = e => { playing = false; document.getElementById('play').textContent = 'Play'; document.getElementById('play').classList.remove('on'); t = +e.target.value; draw(); };
+if (still) document.body.classList.add('still');
+build();
+function loop(ts) { if (playing && last !== null) { t = (t + (ts - last) / 1000) % (intro.duration + 0.8); draw(); } last = ts; requestAnimationFrame(loop); }
+if (!still) requestAnimationFrame(loop);
+
+// Cho script xuất video và lưới version: vẽ một khung, trả PNG
+window.DUR = intro.duration;
+window.EVENTS = PikaMathIntro.soundCues();
+window.render = s => { t = s; draw(); };
+window.frame = s => { t = s; draw(); return cv.toDataURL('image/png'); };
+</script>
+</body></html>

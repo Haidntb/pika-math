@@ -1,0 +1,7 @@
+# File sinh lại được bằng lệnh
+export/
+node_modules/
+.hyperframes/
+remotion/example/out/
+hyperframes/example/renders/
+.DS_Store
